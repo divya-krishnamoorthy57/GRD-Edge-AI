@@ -1,0 +1,215 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  background: #ffffff;
+
+  border-bottom: 4px solid #a50000;
+
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  padding: 12px 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+
+/* =========================
+   GRD LOGO + BRAND
+========================= */
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  color: #222222;
+}
+
+.brand-logo {
+  width: 65px;
+  height: 65px;
+
+  object-fit: contain;
+
+  background: #ffffff;
+
+  border: 2px solid #a50000;
+
+  border-radius: 6px;
+
+  padding: 4px;
+}
+
+.brand-text h2 {
+  margin: 0;
+
+  color: #a50000;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+.brand-text p {
+  margin: 3px 0 0;
+
+  color: #555555;
+
+  font-size: 11px;
+
+  font-weight: 500;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.navbar-links a {
+  position: relative;
+
+  padding: 10px 13px;
+
+  color: #333333;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  transition: 0.25s ease;
+}
+
+.navbar-links a:hover {
+  color: #a50000;
+}
+
+
+/* GOLD HOVER LINE */
+
+.navbar-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 13px;
+  right: 13px;
+
+  bottom: 4px;
+
+  height: 2px;
+
+  background: #ffc72c;
+
+  transform: scaleX(0);
+
+  transform-origin: center;
+
+  transition: 0.25s ease;
+}
+
+.navbar-links a:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* =========================
+   GRD EDGE AI BUTTON
+========================= */
+
+.navbar-links .ai-link {
+  background: #a50000;
+
+  color: #ffffff;
+
+  padding: 11px 17px;
+
+  border-radius: 5px;
+
+  font-weight: 600;
+}
+
+.navbar-links .ai-link:hover {
+  background: #850000;
+
+  color: #ffffff;
+}
+
+.navbar-links .ai-link::after {
+  display: none;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 1050px) {
+
+  .navbar-inner {
+    padding: 12px 20px;
+  }
+
+  .navbar-links {
+    gap: 0;
+  }
+
+  .navbar-links a {
+    padding: 8px;
+
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+  .navbar-inner {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+  }
+
+  .navbar-links {
+    width: 100%;
+
+    flex-wrap: wrap;
+  }
+
+  .brand-logo {
+    width: 55px;
+
+    height: 55px;
+  }
+
+  .brand-text h2 {
+    font-size: 17px;
+  }
+
+}

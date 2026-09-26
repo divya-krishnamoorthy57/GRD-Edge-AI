@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background: #f8f7f4;
+  color: #222222;
+}
+
+a {
+  font-family: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+/* =========================
+   GRD GLOBAL COLOURS
+========================= */
+
+:root {
+  --grd-maroon: #a50000;
+  --grd-dark-maroon: #850000;
+  --grd-gold: #ffc72c;
+
+  --grd-light-gold: #fff4cf;
+
+  --grd-white: #ffffff;
+
+  --grd-background: #f8f7f4;
+
+  --grd-text: #222222;
+
+  --grd-muted: #666666;
+
+  --grd-border: #e4e4e4;
+}
+
+/* =========================
+   COMMON SECTION
+========================= */
+
+section {
+  scroll-margin-top: 100px;
+}

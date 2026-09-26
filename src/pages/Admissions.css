@@ -1,0 +1,145 @@
+.admissions {
+  padding: 100px 7%;
+  background: #ffffff;
+}
+
+.admissions-heading {
+  max-width: 720px;
+  margin-bottom: 55px;
+}
+
+.section-tag {
+  color: #a50000;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
+}
+
+.admissions-heading h2 {
+  margin: 0;
+  color: #4b0000;
+  font-size: 44px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.admissions-heading h2 span {
+  color: #a50000;
+}
+
+.admissions-heading > p:last-child {
+  margin-top: 20px;
+  color: #687070;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.admission-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.admission-card {
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #eadede;
+  border-radius: 20px;
+  transition: 0.25s ease;
+}
+
+.admission-card:hover {
+  transform: translateY(-6px);
+  border-color: #e2b72b;
+  box-shadow: 0 18px 40px rgba(120, 0, 0, 0.09);
+}
+
+.admission-number {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  background: #a50000;
+  color: #ffffff;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.admission-card h3 {
+  margin: 0 0 15px;
+  color: #4b0000;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.admission-card p {
+  margin: 0 0 20px;
+  color: #687070;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.admission-card > span {
+  display: inline-block;
+  padding: 7px 12px;
+  background: #fff4cf;
+  color: #a50000;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admissions-note {
+  margin-top: 35px;
+  padding: 30px 32px;
+  background: #fff4cf;
+  border-left: 5px solid #ffc72c;
+  border-radius: 10px;
+}
+
+.admissions-note h3 {
+  margin: 0 0 10px;
+  color: #4b0000;
+  font-size: 20px;
+}
+
+.admissions-note p {
+  margin: 0 0 18px;
+  color: #687070;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.admissions-note a {
+  display: inline-block;
+  padding: 11px 18px;
+  background: #a50000;
+  color: #ffffff;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.admissions-note a:hover {
+  background: #850000;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .admissions {
+    padding: 75px 5%;
+  }
+
+  .admissions-heading h2 {
+    font-size: 36px;
+  }
+
+  .admission-grid {
+    grid-template-columns: 1fr;
+  }
+}
