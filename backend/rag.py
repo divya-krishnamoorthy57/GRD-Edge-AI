@@ -3,8 +3,8 @@ import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -14,8 +14,8 @@ load_dotenv()
 
 
 # File paths
-PDF_PATH = "backend/data/GRD_Edge_College_Knowledge_Base.pdf"
-VECTORSTORE_PATH = "backend/vectorstore"
+PDF_PATH = "data/GRD_Edge_College_Knowledge_Base.pdf"
+VECTORSTORE_PATH = "vectorstore"
 
 
 # Load PDF
@@ -32,9 +32,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 chunks = text_splitter.split_documents(documents)
 
 
-# Create embeddings
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+# Create lightweight embeddings
+embeddings = FastEmbedEmbeddings(
+    model_name="BAAI/bge-small-en-v1.5"
 )
 
 
@@ -83,11 +83,12 @@ retriever = vectorstore.as_retriever(
 )
 
 
-# Gemini model
+# Groq model
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0
 )
+
 
 # RAG prompt
 rag_prompt = ChatPromptTemplate.from_template("""
