@@ -13,17 +13,53 @@ from langchain_core.prompts import ChatPromptTemplate
 load_dotenv()
 
 
-# File paths
-PDF_PATH = "data/GRD_Edge_College_Knowledge_Base.pdf"
-VECTORSTORE_PATH = "vectorstore"
+# --------------------------------------------------
+# FILE PATHS
+# --------------------------------------------------
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+PDF_PATH = os.path.join(
+    BASE_DIR,
+    "data",
+    "GRD_Edge_College_Knowledge_Base.pdf"
+)
+
+VECTORSTORE_PATH = os.path.join(
+    BASE_DIR,
+    "vectorstore"
+)
 
 
-# Load PDF
+# --------------------------------------------------
+# CHECK PDF
+# --------------------------------------------------
+
+print("PDF PATH:", PDF_PATH)
+
+if not os.path.isfile(PDF_PATH):
+    raise FileNotFoundError(
+        f"College knowledge base PDF not found: {PDF_PATH}"
+    )
+
+
+# --------------------------------------------------
+# LOAD PDF
+# --------------------------------------------------
+
+print("Loading college knowledge base...")
+
 loader = PyPDFLoader(PDF_PATH)
+
 documents = loader.load()
 
+print(f"Loaded {len(documents)} PDF pages.")
 
-# Split PDF into chunks
+
+# --------------------------------------------------
+# SPLIT PDF INTO CHUNKS
+# --------------------------------------------------
+
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000,
     chunk_overlap=200
@@ -31,18 +67,29 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 chunks = text_splitter.split_documents(documents)
 
+print(f"Created {len(chunks)} text chunks.")
 
-# Create lightweight embeddings
+
+# --------------------------------------------------
+# CREATE EMBEDDINGS
+# --------------------------------------------------
+
+print("Loading embedding model...")
+
 embeddings = FastEmbedEmbeddings(
     model_name="BAAI/bge-small-en-v1.5"
 )
 
 
-# Create or load FAISS vector database
+# --------------------------------------------------
+# CREATE OR LOAD FAISS VECTOR DATABASE
+# --------------------------------------------------
+
 index_file = os.path.join(
     VECTORSTORE_PATH,
     "index.faiss"
 )
+
 
 if os.path.exists(index_file):
 
@@ -58,14 +105,14 @@ else:
 
     print("Creating FAISS vector database...")
 
-    vectorstore = FAISS.from_documents(
-        chunks,
-        embeddings
-    )
-
     os.makedirs(
         VECTORSTORE_PATH,
         exist_ok=True
+    )
+
+    vectorstore = FAISS.from_documents(
+        chunks,
+        embeddings
     )
 
     vectorstore.save_local(
@@ -75,7 +122,10 @@ else:
     print("FAISS vector database created successfully.")
 
 
-# Create retriever
+# --------------------------------------------------
+# RETRIEVER
+# --------------------------------------------------
+
 retriever = vectorstore.as_retriever(
     search_kwargs={
         "k": 5
@@ -83,15 +133,22 @@ retriever = vectorstore.as_retriever(
 )
 
 
-# Groq model
+# --------------------------------------------------
+# GROQ LLM
+# --------------------------------------------------
+
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
     temperature=0
 )
 
 
-# RAG prompt
-rag_prompt = ChatPromptTemplate.from_template("""
+# --------------------------------------------------
+# RAG PROMPT
+# --------------------------------------------------
+
+rag_prompt = ChatPromptTemplate.from_template(
+    """
 You are GRD Edge, the AI-powered college assistant for
 Dr. G.R. Damodaran College of Science, Coimbatore.
 
@@ -110,25 +167,39 @@ Question:
 {question}
 
 Answer:
-""")
+"""
+)
 
 
-# GRD Edge RAG function
+# --------------------------------------------------
+# GRD EDGE RAG FUNCTION
+# --------------------------------------------------
+
 def ask_grd_edge(question: str) -> str:
 
+    print("Question received:", question)
+
     retrieved_docs = retriever.invoke(question)
+
+    print(f"Retrieved {len(retrieved_docs)} documents.")
 
     context = "\n\n".join(
         doc.page_content
         for doc in retrieved_docs
     )
 
-    prompt = rag_prompt.invoke({
-        "context": context,
-        "question": question
-    })
+    prompt = rag_prompt.invoke(
+        {
+            "context": context,
+            "question": question
+        }
+    )
+
+    print("Sending request to Groq...")
 
     response = llm.invoke(prompt)
+
+    print("Groq response received.")
 
     if isinstance(response.content, list):
 
