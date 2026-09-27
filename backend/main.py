@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+
 def ask_grd_edge(message):
     from backend.rag import ask_grd_edge as rag_ask
     return rag_ask(message)
@@ -14,7 +15,6 @@ app = FastAPI(
 )
 
 
-# Allow React frontend to communicate with FastAPI
 # Allow React frontend to communicate with FastAPI
 app.add_middleware(
     CORSMiddleware,
