@@ -41,8 +41,13 @@ def root():
 
 @app.post("/chat")
 def chat(request: ChatRequest):
-    answer = ask_grd_edge(request.message)
+    try:
+        answer = ask_grd_edge(request.message)
 
-    return {
-        "answer": answer
-    }
+        return {
+            "answer": answer
+        }
+
+    except Exception as e:
+        print("GRD EDGE ERROR:", repr(e))
+        raise
