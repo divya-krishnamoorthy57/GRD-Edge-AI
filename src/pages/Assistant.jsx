@@ -33,8 +33,7 @@ function Assistant() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8001/chat",
+      const response = await fetch("https://grd-edge-ai.onrender.com/chat", 
         {
           method: "POST",
           headers: {
